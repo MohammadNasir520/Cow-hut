@@ -4,6 +4,7 @@ import {
   IGenericErrorResponse,
 } from "../../interfaces/common";
 import { HandleValidationError } from "../../errors/HandleValidationError";
+import { handleCastError } from "../../errors/handleCastError";
 
 export const globalErrorHandler = async (
   error: any,
@@ -17,6 +18,12 @@ export const globalErrorHandler = async (
 
   if (error.name === "ValidationError") {
     const simplifiedError = HandleValidationError(error);
+
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorMessage = simplifiedError.errorMessage;
+  } else if (error.name === "CastError") {
+    const simplifiedError = handleCastError(error);
 
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;

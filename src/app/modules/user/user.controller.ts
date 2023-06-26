@@ -27,21 +27,19 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
     data: getAllUsers,
   });
 };
-const getSingleUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const { id } = req.params;
-  const getAllUsers = await UserService.getSingleUser(id);
+const getSingleUser = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const getAllUsers = await UserService.getSingleUser(id);
 
-  res.status(200).json({
-    success: true,
-    statusCode: 200,
-    message: "user retrieved successfully",
-    data: getAllUsers,
-  });
-};
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "user retrieved successfully",
+      data: getAllUsers,
+    });
+  }
+);
 const deleteSingleUser = async (
   req: Request,
   res: Response,
