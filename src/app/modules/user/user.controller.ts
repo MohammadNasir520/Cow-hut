@@ -1,6 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { UserService } from "./user.service";
 import catchAsync from "../../../shared/catchAsync";
+import ApiError from "../../../errors/ApiError";
 
 const signUp = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
