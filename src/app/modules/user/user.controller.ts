@@ -17,7 +17,7 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
 
   res.status(200).json({
     success: true,
-    message: "user created successfully",
+    message: "users retrieved successfully",
     data: getAllUsers,
   });
 };
@@ -31,8 +31,22 @@ const getSingleUser = async (
 
   res.status(200).json({
     success: true,
-    message: "user created successfully",
+    message: "user retrieved successfully",
     data: getAllUsers,
+  });
+};
+const deleteSingleUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const deleteSingleUser = await UserService.deleteSingleUser(id);
+
+  res.status(200).json({
+    success: true,
+    message: "user deleted successfully",
+    data: deleteSingleUser,
   });
 };
 
@@ -40,4 +54,5 @@ export const UserController = {
   signUp,
   getAllUsers,
   getSingleUser,
+  deleteSingleUser,
 };
