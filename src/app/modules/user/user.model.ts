@@ -11,6 +11,7 @@ const UserSchema = new Schema<IUser>(
     role: {
       type: String,
       enum: ["seller", "buyer"],
+      required: true,
     },
     password: {
       type: String,
@@ -32,11 +33,9 @@ const UserSchema = new Schema<IUser>(
     },
     budget: {
       type: Number,
-      required: true,
     },
     income: {
       type: Number,
-      required: true,
     },
   },
   {

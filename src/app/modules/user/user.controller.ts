@@ -1,22 +1,28 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { UserService } from "./user.service";
+import catchAsync from "../../../shared/catchAsync";
 
-const signUp = async (req: Request, res: Response, next: NextFunction) => {
-  const userData = req.body;
+const signUp = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userData = req.body;
 
-  const createUser = await UserService.createUser(userData);
+    const createUser = await UserService.createUser(userData);
 
-  res.status(200).json({
-    success: true,
-    message: "user created successfully",
-    data: createUser,
-  });
-};
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: "user created successfully",
+      data: createUser,
+    });
+  }
+);
+
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   const getAllUsers = await UserService.getAllUsers();
 
   res.status(200).json({
     success: true,
+    statusCode: 200,
     message: "users retrieved successfully",
     data: getAllUsers,
   });
@@ -31,6 +37,7 @@ const getSingleUser = async (
 
   res.status(200).json({
     success: true,
+    statusCode: 200,
     message: "user retrieved successfully",
     data: getAllUsers,
   });
@@ -45,6 +52,7 @@ const deleteSingleUser = async (
 
   res.status(200).json({
     success: true,
+    statusCode: 200,
     message: "user deleted successfully",
     data: deleteSingleUser,
   });
