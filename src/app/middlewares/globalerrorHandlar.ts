@@ -40,6 +40,16 @@ export const globalErrorHandler = async (
           },
         ]
       : [];
+  } else if (error instanceof Error) {
+    message = error?.message;
+    errorMessage = error?.message
+      ? [
+          {
+            path: "",
+            message: error?.message,
+          },
+        ]
+      : [];
   }
   res.status(400).json({
     message,
