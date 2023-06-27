@@ -7,6 +7,9 @@ import { HandleValidationError } from "../../errors/HandleValidationError";
 import { handleCastError } from "../../errors/handleCastError";
 import ApiError from "../../errors/ApiError";
 
+import { ZodError } from "zod";
+import { handleZodError } from "../../errors/handleZodError";
+
 export const globalErrorHandler = async (
   error: any,
   req: Request,
@@ -26,6 +29,11 @@ export const globalErrorHandler = async (
   } else if (error.name === "CastError") {
     const simplifiedError = handleCastError(error);
 
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorMessage = simplifiedError.errorMessage;
+  } else if (error instanceof ZodError) {
+    const simplifiedError = handleZodError(error);
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorMessage = simplifiedError.errorMessage;

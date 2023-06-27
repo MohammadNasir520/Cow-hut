@@ -5,6 +5,6 @@ export type IGenericErrorResponse = {
 };
 
 export type IGenericErrorMessage = {
-  path: string;
+  path: string | number;
   message: string;
 };
