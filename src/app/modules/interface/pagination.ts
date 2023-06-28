@@ -6,3 +6,5 @@ export type IPaginationOptions = {
   sortBy?: string;
   sortOrder?: SortOrder;
 };
+
+export type sortOptions = { [key: string]: SortOrder };

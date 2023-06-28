@@ -1,9 +1,7 @@
 import { SortOrder } from "mongoose";
-import { IPaginationOptions } from "../interface/pagination";
+import { IPaginationOptions, sortOptions } from "../interface/pagination";
 import { ICow } from "./cow.interface";
 import { Cow } from "./cow.models";
-
-type sortOptions = { [key: string]: SortOrder };
 
 const createCow = async (CowData: ICow): Promise<ICow> => {
   const createCow = (await Cow.create(CowData)).populate("seller");
