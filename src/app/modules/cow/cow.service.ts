@@ -1,3 +1,4 @@
+import { IPaginationOptions } from "../interface/pagination";
 import { ICow } from "./cow.interface";
 import { Cow } from "./cow.models";
 
@@ -6,8 +7,13 @@ const createCow = async (CowData: ICow): Promise<ICow> => {
   return createCow;
 };
 
-const getAllCows = async () => {
-  const getAllCows = await Cow.find({});
+const getAllCows = async (paginationOptions: IPaginationOptions) => {
+  const page = paginationOptions.page || 1;
+  const limit = paginationOptions.limit || 5;
+
+  const skip = (page - 1) * limit;
+
+  const getAllCows = await Cow.find({}).skip(skip).limit(limit);
   return getAllCows;
 };
 const getSingleCow = async (id: string) => {

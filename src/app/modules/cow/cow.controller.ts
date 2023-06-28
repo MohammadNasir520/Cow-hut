@@ -19,7 +19,8 @@ const createCow = catchAsync(
 );
 
 const getAllCows = async (req: Request, res: Response, next: NextFunction) => {
-  const getAllCows = await CowService.getAllCows();
+  const paginationOptions = req.query;
+  const getAllCows = await CowService.getAllCows(paginationOptions);
 
   res.status(200).json({
     success: true,
