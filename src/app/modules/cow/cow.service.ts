@@ -1,6 +1,6 @@
 import { SortOrder } from "mongoose";
 import { IPaginationOptions, sortOptions } from "../interface/pagination";
-import { ICow } from "./cow.interface";
+import { CowFilters, ICow } from "./cow.interface";
 import { Cow } from "./cow.models";
 
 const createCow = async (CowData: ICow): Promise<ICow> => {
@@ -8,7 +8,12 @@ const createCow = async (CowData: ICow): Promise<ICow> => {
   return createCow;
 };
 
-const getAllCows = async (paginationOptions: IPaginationOptions) => {
+const getAllCows = async (
+  paginationOptions: IPaginationOptions,
+  filters: CowFilters
+) => {
+  const { searchTerm } = filters;
+
   const page = paginationOptions.page || 1;
   const limit = paginationOptions.limit || 5;
   const skip = (page - 1) * limit;
@@ -22,7 +27,23 @@ const getAllCows = async (paginationOptions: IPaginationOptions) => {
     sortOptions[sortBy] = sortOrder;
   }
 
-  const getAllCows = await Cow.find({})
+  const CowSearchableFields = ["name", "price"];
+
+  const andConditions = [];
+  if (searchTerm) {
+    andConditions.push({
+      $or: CowSearchableFields.map((field) => {
+        return {
+          [field]: {
+            $regex: searchTerm,
+            $options: "i",
+          },
+        };
+      }),
+    });
+  }
+
+  const getAllCows = await Cow.find({ $and: andConditions })
     .sort(sortOptions)
     .skip(skip)
     .limit(limit);

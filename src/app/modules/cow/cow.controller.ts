@@ -26,7 +26,10 @@ const getAllCows = async (req: Request, res: Response, next: NextFunction) => {
     "sortBy",
     "sortOrder",
   ]);
-  const getAllCows = await CowService.getAllCows(paginationOptions);
+
+  const filters = pick(req.query, ["searchTerm"]);
+
+  const getAllCows = await CowService.getAllCows(paginationOptions, filters);
 
   res.status(200).json({
     success: true,

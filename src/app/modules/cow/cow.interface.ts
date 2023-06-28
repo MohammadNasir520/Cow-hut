@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 export type ICow = {
   name: string;
   age: number;
-  price: number;
+  price: string;
   location:
     | "Dhaka"
     | "Chattogram"
@@ -20,4 +20,8 @@ export type ICow = {
   lebel: string;
   category: "Dairy" | "Beef" | "Seller";
   seller: ObjectId;
+};
+
+export type CowFilters = {
+  searchTerm?: string;
 };

@@ -10,7 +10,7 @@ const CowSchema = new Schema<ICow>({
     required: true,
   },
   price: {
-    type: Number,
+    type: String,
     required: true,
   },
   location: {
