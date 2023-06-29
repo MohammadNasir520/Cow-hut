@@ -12,7 +12,7 @@ const getAllCows = async (
   paginationOptions: IPaginationOptions,
   filters: CowFilters
 ) => {
-  const { searchTerm } = filters;
+  const { searchTerm, ...filtersData } = filters;
 
   const page = paginationOptions.page || 1;
   const limit = paginationOptions.limit || 5;
@@ -27,7 +27,13 @@ const getAllCows = async (
     sortOptions[sortBy] = sortOrder;
   }
 
-  const CowSearchableFields = ["name", "price"];
+  const CowSearchableFields = [
+    "name",
+    "price",
+    "location",
+    "breed",
+    "category",
+  ];
 
   const andConditions = [];
   if (searchTerm) {
@@ -43,7 +49,30 @@ const getAllCows = async (
     });
   }
 
-  const getAllCows = await Cow.find({ $and: andConditions })
+  // if (Object.keys(filtersData).length) {
+  //   andConditions.push({
+  //     $and: Object.entries(filtersData).map(([field, value]) => ({
+  //       [field]: value,
+  //     })),
+  //   });
+  // }
+  console.log(searchTerm);
+  console.log(filtersData);
+  console.log(Object.keys(filtersData).length);
+
+  if (Object.keys(filtersData).length) {
+    andConditions.push({
+      $and: Object.entries(filtersData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+  console.log(andConditions);
+
+  const whereCondition =
+    andConditions.length > 0 ? { $and: andConditions } : {};
+
+  const getAllCows = await Cow.find(whereCondition)
     .sort(sortOptions)
     .skip(skip)
     .limit(limit);

@@ -27,7 +27,7 @@ const getAllCows = async (req: Request, res: Response, next: NextFunction) => {
     "sortOrder",
   ]);
 
-  const filters = pick(req.query, ["searchTerm"]);
+  const filters = pick(req.query, ["searchTerm", "location", "breed"]);
 
   const getAllCows = await CowService.getAllCows(paginationOptions, filters);
 
