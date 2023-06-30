@@ -3,6 +3,8 @@ import { CowService } from "./cow.service";
 import catchAsync from "../../../shared/catchAsync";
 import ApiError from "../../../errors/ApiError";
 import { pick } from "../../../shared/pick";
+import { CowsFilterableFields } from "./cow.constant";
+import { paginationOptionsField } from "../../constant/pagination";
 
 const createCow = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -20,14 +22,9 @@ const createCow = catchAsync(
 );
 
 const getAllCows = async (req: Request, res: Response, next: NextFunction) => {
-  const paginationOptions = pick(req.query, [
-    "page",
-    "limit",
-    "sortBy",
-    "sortOrder",
-  ]);
+  const paginationOptions = pick(req.query, paginationOptionsField);
 
-  const filters = pick(req.query, ["searchTerm", "location", "breed"]);
+  const filters = pick(req.query, CowsFilterableFields);
 
   const getAllCows = await CowService.getAllCows(paginationOptions, filters);
 

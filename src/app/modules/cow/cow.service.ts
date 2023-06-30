@@ -2,6 +2,8 @@ import { SortOrder } from "mongoose";
 import { IPaginationOptions, sortOptions } from "../interface/pagination";
 import { CowFilters, ICow } from "./cow.interface";
 import { Cow } from "./cow.models";
+import { CowSearchableFields } from "./cow.constant";
+import { paginationHelpers } from "../../helpers/paginationHelpers";
 
 const createCow = async (CowData: ICow): Promise<ICow> => {
   const createCow = (await Cow.create(CowData)).populate("seller");
@@ -14,28 +16,18 @@ const getAllCows = async (
 ) => {
   const { searchTerm, ...filtersData } = filters;
 
-  const page = paginationOptions.page || 1;
-  const limit = paginationOptions.limit || 5;
-  const skip = (page - 1) * limit;
-
-  const sortBy = paginationOptions.sortBy || "createdAt";
-  const sortOrder = paginationOptions.sortOrder || "desc";
+  const { page, limit, skip, sortBy, sortOrder, maxPrice, minPrice } =
+    paginationHelpers.calculatePagination(paginationOptions);
 
   const sortOptions: sortOptions = {};
-
+  // for sort asc or desc
   if (sortBy && sortOrder) {
     sortOptions[sortBy] = sortOrder;
   }
 
-  const CowSearchableFields = [
-    "name",
-    "price",
-    "location",
-    "breed",
-    "category",
-  ];
-
   const andConditions = [];
+
+  // for search term
   if (searchTerm) {
     andConditions.push({
       $or: CowSearchableFields.map((field) => {
@@ -49,17 +41,7 @@ const getAllCows = async (
     });
   }
 
-  // if (Object.keys(filtersData).length) {
-  //   andConditions.push({
-  //     $and: Object.entries(filtersData).map(([field, value]) => ({
-  //       [field]: value,
-  //     })),
-  //   });
-  // }
-  console.log(searchTerm);
-  console.log(filtersData);
-  console.log(Object.keys(filtersData).length);
-
+  // for dynamically filtering data
   if (Object.keys(filtersData).length) {
     andConditions.push({
       $and: Object.entries(filtersData).map(([field, value]) => ({
@@ -67,10 +49,24 @@ const getAllCows = async (
       })),
     });
   }
-  console.log(andConditions);
 
-  const whereCondition =
-    andConditions.length > 0 ? { $and: andConditions } : {};
+  // maxPrice or minPrice filtering by price
+
+  if (maxPrice && minPrice) {
+    andConditions.push({
+      $and: [{ price: { $gte: minPrice } }, { price: { $lte: maxPrice } }],
+    });
+  } else if (maxPrice) {
+    andConditions.push({
+      price: { $lte: maxPrice },
+    });
+  } else if (minPrice) {
+    andConditions.push({
+      price: { $gte: minPrice },
+    });
+  }
+
+  let whereCondition = andConditions.length > 0 ? { $and: andConditions } : {};
 
   const getAllCows = await Cow.find(whereCondition)
     .sort(sortOptions)
@@ -78,6 +74,7 @@ const getAllCows = async (
     .limit(limit);
   return getAllCows;
 };
+
 const getSingleCow = async (id: string) => {
   const getAllCows = await Cow.findById(id);
   return getAllCows;

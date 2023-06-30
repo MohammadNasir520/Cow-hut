@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 export type ICow = {
   name: string;
   age: number;
-  price: string;
+  price: number;
   location:
     | "Dhaka"
     | "Chattogram"
