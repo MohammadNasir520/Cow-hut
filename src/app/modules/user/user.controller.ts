@@ -3,21 +3,6 @@ import { UserService } from "./user.service";
 import catchAsync from "../../../shared/catchAsync";
 import ApiError from "../../../errors/ApiError";
 
-const signUp = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const userData = req.body;
-
-    const createUser = await UserService.createUser(userData);
-
-    res.status(200).json({
-      success: true,
-      statusCode: 200,
-      message: "user created successfully",
-      data: createUser,
-    });
-  }
-);
-
 const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   const getAllUsers = await UserService.getAllUsers();
 
@@ -58,7 +43,6 @@ const deleteSingleUser = async (
 };
 
 export const UserController = {
-  signUp,
   getAllUsers,
   getSingleUser,
   deleteSingleUser,

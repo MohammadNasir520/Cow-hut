@@ -1,5 +1,8 @@
 import { SortOrder } from "mongoose";
-import { IPaginationOptions, sortOptions } from "../interface/pagination";
+import {
+  IPaginationOptions,
+  sortOptions,
+} from "../../../interfaces/pagination";
 import { CowFilters, ICow } from "./cow.interface";
 import { Cow } from "./cow.models";
 import { CowSearchableFields } from "./cow.constant";

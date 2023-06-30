@@ -12,8 +12,8 @@ const UserSignUpZodSchema = z.object({
       lastName: z.string({ required_error: "Last Name is required" }),
     }),
     address: z.string({ required_error: "address is required" }),
-    budget: z.number({ required_error: "budget is required" }),
-    income: z.number({ required_error: "income is required" }),
+    budget: z.number().optional(),
+    income: z.number().optional(),
   }),
 });
 

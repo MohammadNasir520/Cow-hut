@@ -1,4 +1,4 @@
-import { IPaginationOptions } from "../modules/interface/pagination";
+import { IPaginationOptions } from "../../interfaces/pagination";
 
 const calculatePagination = (paginationOptions: IPaginationOptions) => {
   const page = paginationOptions.page || 1;
