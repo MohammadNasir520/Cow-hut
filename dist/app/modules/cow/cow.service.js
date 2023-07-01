@@ -76,6 +76,7 @@ const getAllCows = (paginationOptions, filters) => __awaiter(void 0, void 0, voi
     }
     let whereCondition = andConditions.length > 0 ? { $and: andConditions } : {};
     const getAllCows = yield cow_models_1.Cow.find(whereCondition)
+        .populate("seller")
         .sort(sortOptions)
         .skip(skip)
         .limit(limit);
@@ -90,7 +91,7 @@ const getAllCows = (paginationOptions, filters) => __awaiter(void 0, void 0, voi
     };
 });
 const getSingleCow = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const getAllCows = yield cow_models_1.Cow.findById(id);
+    const getAllCows = yield cow_models_1.Cow.findById(id).populate("seller");
     return getAllCows;
 });
 const updateCow = (id, payload) => __awaiter(void 0, void 0, void 0, function* () {
