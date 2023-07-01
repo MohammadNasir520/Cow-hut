@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import app from "./app";
 import { Server } from "http";
+import config from "./config/index";
 const port = 5000;
 
 let server: Server;
 async function bootstrap() {
   try {
-    await mongoose.connect(`mongodb://127.0.0.1:27017/cow-hut`);
+    await mongoose.connect(config.database_url as string);
     console.log("database is connected");
 
     server = app.listen(port, () => {

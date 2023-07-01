@@ -14,5 +14,5 @@ router.post(
 router.get("/:id", CowController.getSingleCow);
 router.get("/", CowController.getAllCows);
 router.delete("/:id", CowController.deleteSingleCow);
-
+router.patch("/:id", CowController.updateCow);
 export const CowRoutes = router;

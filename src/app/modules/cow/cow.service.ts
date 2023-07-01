@@ -82,6 +82,18 @@ const getSingleCow = async (id: string) => {
   const getAllCows = await Cow.findById(id);
   return getAllCows;
 };
+
+const updateCow = async (id: string, payload: Partial<ICow>) => {
+  const updatedCow = await Cow.findOneAndUpdate(
+    {
+      _id: id,
+    },
+    payload,
+    { new: true }
+  );
+  return updatedCow;
+};
+
 const deleteSingleCow = async (id: string) => {
   const deleteSingleCow = await Cow.findByIdAndDelete(id);
   return deleteSingleCow;
@@ -91,5 +103,6 @@ export const CowService = {
   createCow,
   getAllCows,
   getSingleCow,
+  updateCow,
   deleteSingleCow,
 };
