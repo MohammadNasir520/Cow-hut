@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IOrder, OrderModel } from "./order.interface";
+import { IOrder } from "./order.interface";
 
 const OrderSchema = new Schema(
   {
@@ -22,4 +22,4 @@ const OrderSchema = new Schema(
   }
 );
 
-export const Order = model<IOrder, OrderModel>("Order", OrderSchema);
+export const Order = model<IOrder>("Order", OrderSchema);

@@ -9,11 +9,11 @@ const createOrder = async (OrderData: IOrder): Promise<IOrder> => {
 };
 
 const getAllOrders = async () => {
-  const getAllOrders = await Order.find();
+  const getAllOrders = await Order.find().populate("cow").populate("buyer");
   return getAllOrders;
 };
 
-export const OrderService = {
+export const OrderServices = {
   createOrder,
   getAllOrders,
 };

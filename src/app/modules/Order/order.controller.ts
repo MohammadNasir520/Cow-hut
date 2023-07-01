@@ -1,13 +1,13 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
 import catchAsync from "../../../shared/catchAsync";
-import { OrderService } from "./Order.service";
+import { OrderServices } from "./order.service";
 
 const createOrder = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const OrderData = req.body;
 
-    const createOrder = await OrderService.createOrder(OrderData);
+    const createOrder = await OrderServices.createOrder(OrderData);
 
     res.status(200).json({
       success: true,
@@ -23,7 +23,7 @@ const getAllOrders = async (
   res: Response,
   next: NextFunction
 ) => {
-  const getAllOrders = await OrderService.getAllOrders();
+  const getAllOrders = await OrderServices.getAllOrders();
 
   res.status(200).json({
     success: true,
