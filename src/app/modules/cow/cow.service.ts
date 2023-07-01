@@ -72,6 +72,7 @@ const getAllCows = async (
   let whereCondition = andConditions.length > 0 ? { $and: andConditions } : {};
 
   const getAllCows = await Cow.find(whereCondition)
+    .populate("seller")
     .sort(sortOptions)
     .skip(skip)
     .limit(limit);
@@ -88,7 +89,7 @@ const getAllCows = async (
 };
 
 const getSingleCow = async (id: string) => {
-  const getAllCows = await Cow.findById(id);
+  const getAllCows = await Cow.findById(id).populate("seller");
   return getAllCows;
 };
 

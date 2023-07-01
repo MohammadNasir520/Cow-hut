@@ -37,7 +37,7 @@ const CowSchema = new mongoose_1.Schema({
         type: Number,
         required: true,
     },
-    lebel: {
+    label: {
         type: String,
         enum: ["for sale", "sold out"],
     },
