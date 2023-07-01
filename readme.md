@@ -17,9 +17,9 @@ api/v1/cows/64a01dd9dc6163a7394f3e3f (DELETE) <br>
 ###  Pagination and Filtering routes of Cows
 api/v1/cows?pag=1&limit=10 <br>
 api/v1/cows?sortBy=price&sortOrder=asc<br>
-api/v1/cows?minPrice=20000&maxPrice=70000<br>
+api/v1/cows?minPrice=2000&maxPrice=80000<br>
 api/v1/cows?location=Chattogram<br>
-api/v1/cows?searchTerm=Cha<br>
+api/v1/cows?searchTerm=dha<br>
 ###  Orders
 api/v1/orders (POST) <br>
 api/v1/orders (GET) <br>

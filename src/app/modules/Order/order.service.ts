@@ -98,8 +98,10 @@ const createOrder = async (OrderData: IOrder) => {
 };
 
 const getAllOrders = async () => {
-  const getAllOrders = await Order.find()
-    .populate("buyer")
+  const getAllOrdersData = await Order.find()
+    .populate({
+      path: "buyer",
+    })
     .populate({
       path: "cow",
       populate: [
@@ -108,7 +110,8 @@ const getAllOrders = async () => {
         },
       ],
     });
-  return getAllOrders;
+
+  return getAllOrdersData;
 };
 
 export const OrderServices = {

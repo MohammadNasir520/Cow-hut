@@ -18,11 +18,7 @@ const createOrder = catchAsync(
   }
 );
 
-const getAllOrders = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const getAllOrders = async (req: Request, res: Response) => {
   const getAllOrders = await OrderServices.getAllOrders();
 
   res.status(200).json({
