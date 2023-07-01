@@ -32,7 +32,8 @@ const getAllCows = async (req: Request, res: Response, next: NextFunction) => {
     success: true,
     statusCode: 200,
     message: "Cows retrieved successfully",
-    data: getAllCows,
+    meta: getAllCows.meta,
+    data: getAllCows.data,
   });
 };
 const getSingleCow = catchAsync(

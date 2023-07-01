@@ -75,7 +75,14 @@ const getAllCows = async (
     .sort(sortOptions)
     .skip(skip)
     .limit(limit);
-  return getAllCows;
+
+  return {
+    meta: {
+      page,
+      limit,
+    },
+    data: getAllCows,
+  };
 };
 
 const getSingleCow = async (id: string) => {
