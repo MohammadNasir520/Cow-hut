@@ -17,7 +17,7 @@ export type ICow = {
   breed: string;
 
   weight: number;
-  lebel: string;
+  label: string;
   category: "Dairy" | "Beef" | "Seller";
   seller: ObjectId;
 };
