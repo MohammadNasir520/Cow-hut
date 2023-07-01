@@ -25,7 +25,7 @@ const createOrder = (0, catchAsync_1.default)((req, res, next) => __awaiter(void
         data: createOrder,
     });
 }));
-const getAllOrders = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const getAllOrders = yield order_service_1.OrderServices.getAllOrders();
     res.status(200).json({
         success: true,

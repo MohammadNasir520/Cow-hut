@@ -82,8 +82,10 @@ const createOrder = (OrderData) => __awaiter(void 0, void 0, void 0, function* (
     return OrderAllData;
 });
 const getAllOrders = () => __awaiter(void 0, void 0, void 0, function* () {
-    const getAllOrders = yield order_model_1.Order.find()
-        .populate("buyer")
+    const getAllOrdersData = yield order_model_1.Order.find()
+        .populate({
+        path: "buyer",
+    })
         .populate({
         path: "cow",
         populate: [
@@ -92,7 +94,7 @@ const getAllOrders = () => __awaiter(void 0, void 0, void 0, function* () {
             },
         ],
     });
-    return getAllOrders;
+    return getAllOrdersData;
 });
 exports.OrderServices = {
     createOrder,
