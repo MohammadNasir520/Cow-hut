@@ -76,10 +76,12 @@ const getAllCows = async (
     .skip(skip)
     .limit(limit);
 
+  const total = await Cow.countDocuments(whereCondition);
   return {
     meta: {
       page,
       limit,
+      total,
     },
     data: getAllCows,
   };
