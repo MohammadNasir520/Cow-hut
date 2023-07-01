@@ -83,14 +83,31 @@ const createOrder = async (OrderData: IOrder) => {
   }
   if (OrderAllData) {
     OrderAllData = await Order.findOne({ _id: OrderAllData._id })
-      .populate("cow")
-      .populate("buyer");
+
+      .populate("buyer")
+      .populate({
+        path: "cow",
+        populate: [
+          {
+            path: "seller",
+          },
+        ],
+      });
   }
   return OrderAllData;
 };
 
 const getAllOrders = async () => {
-  const getAllOrders = await Order.find().populate("cow").populate("buyer");
+  const getAllOrders = await Order.find()
+    .populate("buyer")
+    .populate({
+      path: "cow",
+      populate: [
+        {
+          path: "seller",
+        },
+      ],
+    });
   return getAllOrders;
 };
 
