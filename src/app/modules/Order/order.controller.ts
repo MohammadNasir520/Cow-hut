@@ -19,8 +19,8 @@ const createOrder = catchAsync(
 );
 
 const getAllOrders = async (req: Request, res: Response) => {
-  const getAllOrders = await OrderServices.getAllOrders();
-
+  const user = req.user;
+  const getAllOrders = await OrderServices.getAllOrders(user);
   res.status(200).json({
     success: true,
     statusCode: 200,

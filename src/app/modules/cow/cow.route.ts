@@ -18,12 +18,8 @@ router.get(
 );
 router.delete(
   "/:id",
-  auth(ENUM_USER_SPECIFIC.SPECIFIC_SELLER),
+  auth(ENUM_USER_ROLE.SELLER),
   CowController.deleteSingleCow
 );
-router.patch(
-  "/:id",
-  auth(ENUM_USER_SPECIFIC.SPECIFIC_SELLER),
-  CowController.updateCow
-);
+router.patch("/:id", auth(ENUM_USER_ROLE.SELLER), CowController.updateCow);
 export const CowRoutes = router;

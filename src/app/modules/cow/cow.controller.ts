@@ -5,6 +5,7 @@ import ApiError from "../../../errors/ApiError";
 import { pick } from "../../../shared/pick";
 import { CowsFilterableFields } from "./cow.constant";
 import { paginationOptionsField } from "../../constant/pagination";
+import httpStatus from "http-status";
 
 const createCow = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -52,8 +53,10 @@ const getSingleCow = catchAsync(
 
 const updateCow = async (req: Request, res: Response, next: NextFunction) => {
   const id = req.params.id;
+  const sellerId = req.user?._id;
+
   const updatedDAta = req.body;
-  const updatedCow = await CowService.updateCow(id, updatedDAta);
+  const updatedCow = await CowService.updateCow(id, sellerId, updatedDAta);
 
   res.status(200).json({
     success: true,
@@ -69,12 +72,14 @@ const deleteSingleCow = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
-  const deleteSingleCow = await CowService.deleteSingleCow(id);
+  const sellerId = req.user?._id;
+  const deleteSingleCow = await CowService.deleteSingleCow(id, sellerId);
 
   res.status(200).json({
     success: true,
     statusCode: 200,
     message: "Cow deleted successfully",
+
     data: deleteSingleCow,
   });
 };

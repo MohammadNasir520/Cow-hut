@@ -93,10 +93,15 @@ const getSingleCow = async (id: string) => {
   return getAllCows;
 };
 
-const updateCow = async (id: string, payload: Partial<ICow>) => {
+const updateCow = async (
+  id: string,
+  sellerId: string,
+  payload: Partial<ICow>
+) => {
   const updatedCow = await Cow.findOneAndUpdate(
     {
       _id: id,
+      seller: sellerId,
     },
     payload,
     { new: true }
@@ -104,8 +109,12 @@ const updateCow = async (id: string, payload: Partial<ICow>) => {
   return updatedCow;
 };
 
-const deleteSingleCow = async (id: string) => {
-  const deleteSingleCow = await Cow.findByIdAndDelete(id);
+const deleteSingleCow = async (id: string, sellerId: string) => {
+  const deleteSingleCow = await Cow.findOneAndDelete({
+    _id: id,
+    seller: sellerId,
+  });
+
   return deleteSingleCow;
 };
 

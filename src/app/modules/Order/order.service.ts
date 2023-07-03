@@ -5,6 +5,8 @@ import { User } from "../user/user.model";
 import { IOrder } from "./order.interface";
 import { Order } from "./order.model";
 import mongoose, { startSession } from "mongoose";
+import { JwtPayload } from "jsonwebtoken";
+import { ObjectId } from "mongodb";
 
 // : Promise<IOrder>
 const createOrder = async (OrderData: IOrder) => {
@@ -97,8 +99,30 @@ const createOrder = async (OrderData: IOrder) => {
   return OrderAllData;
 };
 
-const getAllOrders = async () => {
-  const getAllOrdersData = await Order.find()
+const getAllOrders = async (user: any) => {
+  console.log(user);
+  const id = user._id;
+  let findCondition = {};
+
+  if (user.role === "buyer") {
+    findCondition = { buyer: id };
+  }
+
+  // else if (user.role === "seller") {
+  //   const findOrders = await Order.find(id).populate({
+  //     path: "cow",
+  //     populate: [
+  //       {
+  //         path: "seller",
+  //       },
+  //     ],
+  //   });
+
+  //   const sellerId = findOrders[0].cow.seller._id;
+  //   findCondition = {};
+  // }
+
+  const getAllOrdersData = await Order.find(findCondition)
     .populate({
       path: "buyer",
     })
@@ -110,6 +134,8 @@ const getAllOrders = async () => {
         },
       ],
     });
+
+  // console.log(getAllOrdersData[0].cow.seller._id);
 
   return getAllOrdersData;
 };
