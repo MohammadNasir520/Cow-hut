@@ -22,4 +22,4 @@ router.post(
   userAuthController.refreshToken
 );
 
-export const auth = router;
+export const UserAuth = router;

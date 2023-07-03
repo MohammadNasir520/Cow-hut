@@ -1,9 +1,10 @@
 import express from "express";
 import { UserRoutes } from "../modules/user/user.route";
 import { CowRoutes } from "../modules/cow/cow.route";
-import { auth } from "../modules/userAuth/userAuth.route";
+
 import { OrderRoutes } from "../modules/Order/order.route";
 import { AdminRoutes } from "../modules/admin/admin.route";
+import { UserAuth } from "../modules/userAuth/userAuth.route";
 
 // app.ts --> index.ts-->user.route.ts
 
@@ -20,7 +21,7 @@ const moduleRoutes = [
   },
   {
     path: "/auth",
-    route: auth,
+    route: UserAuth,
   },
   {
     path: "/orders",
