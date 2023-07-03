@@ -18,7 +18,7 @@ const loginAdmin = async (payload: ILoginAdmin) => {
   const { phoneNumber, password } = payload;
   const isAdminExist = await Admin.findOne(
     { phoneNumber },
-    { phoneNumber: 1, password: 1 }
+    { phoneNumber: 1, password: 1, role: 1 }
   ).lean();
 
   if (!isAdminExist) {
@@ -35,14 +35,13 @@ const loginAdmin = async (payload: ILoginAdmin) => {
   }
 
   // creating accessToken
-  const { phoneNumber: adminPhoneNumber, role } = isAdminExist;
-  const accessToken = jwt.sign(
-    { adminPhoneNumber, role },
-    config.jwt.secret as Secret,
-    { expiresIn: config.jwt.expires_in as string }
-  );
+  const { _id, role } = isAdminExist;
+
+  const accessToken = jwt.sign({ _id, role }, config.jwt.secret as Secret, {
+    expiresIn: config.jwt.expires_in as string,
+  });
   const refreshToken = jwt.sign(
-    { adminPhoneNumber, role },
+    { _id, role },
     config.jwt.refresh_secret as Secret,
     { expiresIn: config.jwt.refresh_expires_in as string }
   );

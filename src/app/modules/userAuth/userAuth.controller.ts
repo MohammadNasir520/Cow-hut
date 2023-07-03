@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../../../shared/catchAsync";
 import { UserAuthService } from "./userAuth.service";
+import config from "../../../config";
+import sendResponse from "../../../shared/sendResponse";
+import httpStatus from "http-status";
 
 const signUp = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -17,6 +20,28 @@ const signUp = catchAsync(
   }
 );
 
+const loginUser = catchAsync(async (req: Request, res: Response) => {
+  const UserLoginData = req.body;
+  const result = await UserAuthService.loginUser(UserLoginData);
+
+  const { accessToken, refreshToken } = result;
+
+  const cookieOptions = {
+    secure: config.env === "production",
+    httpOnly: true,
+  };
+
+  res.cookie("refreshToken", refreshToken, cookieOptions);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "User logged in successfully",
+    data: { accessToken },
+  });
+});
+
 export const userAuthController = {
   signUp,
+  loginUser,
 };

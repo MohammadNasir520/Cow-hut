@@ -43,9 +43,9 @@ const AdminSchema = new Schema<IAdmin>(
 
 AdminSchema.pre("save", async function (next) {
   // hashing Admin password
-  const user = this;
-  user.password = await bcrypt.hash(
-    user.password,
+  const Admin = this;
+  Admin.password = await bcrypt.hash(
+    Admin.password,
     Number(config.bycrypt_salt_rounds)
   );
   next();
