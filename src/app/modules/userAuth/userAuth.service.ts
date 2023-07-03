@@ -1,7 +1,7 @@
 import { IUser } from "../user/user.interface";
 import { User } from "../user/user.model";
 import bcrypt from "bcrypt";
-import jwt, { Secret } from "jsonwebtoken";
+import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import config from "../../../config";
 import ApiError from "../../../errors/ApiError";
 import httpStatus from "http-status";
@@ -53,7 +53,33 @@ const loginUser = async (payload: ILoginUser) => {
   };
 };
 
+const refreshToken = async (token: string) => {
+  let verifyToken = null;
+  try {
+    verifyToken = jwt.verify(
+      token,
+      config.jwt.refresh_secret as Secret
+    ) as JwtPayload;
+  } catch (error) {
+    throw new ApiError(httpStatus.FORBIDDEN, "invalid token");
+  }
+  const { _id, role } = verifyToken;
+
+  const isUserExist = await User.isUserExist(_id);
+  if (!isUserExist) {
+    throw new ApiError(httpStatus.FORBIDDEN, "user does not exist");
+  }
+
+  const accessToken = jwt.sign({ _id, role }, config.jwt.secret as Secret, {
+    expiresIn: config.jwt.expires_in as string,
+  });
+
+  console.log("c", accessToken);
+  return { accessToken };
+};
+
 export const UserAuthService = {
   createUser,
   loginUser,
+  refreshToken,
 };

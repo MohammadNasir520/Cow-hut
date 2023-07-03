@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
-import { IUser } from "./user.interface";
+import { IUser, UserModel } from "./user.interface";
 import bcrypt from "bcrypt";
 import config from "../../../config";
-const UserSchema = new Schema<IUser>(
+const UserSchema = new Schema<IUser, UserModel>(
   {
     phoneNumber: {
       type: String,
@@ -18,6 +18,7 @@ const UserSchema = new Schema<IUser>(
     password: {
       type: String,
       required: true,
+      select: 0,
     },
     name: {
       firstName: {
@@ -47,6 +48,12 @@ const UserSchema = new Schema<IUser>(
   }
 );
 
+UserSchema.statics.isUserExist = async function (
+  id: string
+): Promise<Pick<IUser, "_id" | "role"> | null> {
+  return await User.findOne({ _id: id }, { _id: 1, role: 1 });
+};
+
 UserSchema.pre("save", async function (next) {
   // hashing Admin password
   const user = this;
@@ -57,4 +64,4 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-export const User = model<IUser>("User", UserSchema);
+export const User = model<IUser, UserModel>("User", UserSchema);

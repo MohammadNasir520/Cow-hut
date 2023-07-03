@@ -1,4 +1,7 @@
+import { Model, Types } from "mongoose";
+
 export type IUser = {
+  _id: Types.ObjectId;
   phoneNumber: string;
   role: "seller" | "buyer";
   password: string;
@@ -10,3 +13,7 @@ export type IUser = {
   budget: number;
   income: number;
 };
+
+export type UserModel = {
+  isUserExist(id: string): Promise<Pick<IUser, "_id" | "role">>;
+} & Model<IUser>;

@@ -40,8 +40,27 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
     data: { accessToken },
   });
 });
+const refreshToken = catchAsync(async (req: Request, res: Response) => {
+  const { refreshToken } = req.cookies;
+  const result = await UserAuthService.refreshToken(refreshToken);
+
+  const cookieOptions = {
+    secure: config.env === "production",
+    httpOnly: true,
+  };
+
+  res.cookie("refreshToken", refreshToken, cookieOptions);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "User logged in successfully",
+    data: result,
+  });
+});
 
 export const userAuthController = {
   signUp,
   loginUser,
+  refreshToken,
 };
