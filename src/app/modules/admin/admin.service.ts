@@ -30,8 +30,6 @@ const loginAdmin = async (payload: ILoginAdmin) => {
     isAdminExist.password
   );
 
-  console.log(isPassWordMatched);
-
   if (!isPassWordMatched) {
     throw new ApiError(httpStatus.UNAUTHORIZED, "invalid password");
   }
