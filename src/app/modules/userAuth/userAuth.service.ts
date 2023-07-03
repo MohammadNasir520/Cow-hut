@@ -6,6 +6,7 @@ import config from "../../../config";
 import ApiError from "../../../errors/ApiError";
 import httpStatus from "http-status";
 import { ILoginUser } from "./UserAuth.interface";
+import { jwtHelpers } from "../../helpers/jwtHelpers";
 
 const createUser = async (userData: IUser): Promise<IUser> => {
   const createUser = await User.create(userData);
@@ -55,14 +56,16 @@ const loginUser = async (payload: ILoginUser) => {
 
 const refreshToken = async (token: string) => {
   let verifyToken = null;
+
   try {
-    verifyToken = jwt.verify(
+    verifyToken = await jwtHelpers.verifyToken(
       token,
       config.jwt.refresh_secret as Secret
-    ) as JwtPayload;
+    );
   } catch (error) {
     throw new ApiError(httpStatus.FORBIDDEN, "invalid token");
   }
+
   const { _id, role } = verifyToken;
 
   const isUserExist = await User.isUserExist(_id);
@@ -70,9 +73,11 @@ const refreshToken = async (token: string) => {
     throw new ApiError(httpStatus.FORBIDDEN, "user does not exist");
   }
 
-  const accessToken = jwt.sign({ _id, role }, config.jwt.secret as Secret, {
-    expiresIn: config.jwt.expires_in as string,
-  });
+  const accessToken = jwtHelpers.createToken(
+    { _id, role },
+    config.jwt.secret as Secret,
+    config.jwt.expires_in as string
+  );
 
   console.log("c", accessToken);
   return { accessToken };
