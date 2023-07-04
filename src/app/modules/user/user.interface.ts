@@ -1,6 +1,7 @@
 import { Model, Types } from "mongoose";
 
 export type IUser = {
+  _id?: Types.ObjectId;
   phoneNumber: string;
   role: "seller" | "buyer";
   password: string;

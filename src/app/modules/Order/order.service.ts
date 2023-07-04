@@ -123,7 +123,7 @@ const getAllOrders = async (user: JwtPayload) => {
       });
 
     const loggedInSellersOrders = findAllOrders.filter(
-      (order) => (order.cow as ICow).seller._id.toString() === id
+      (order) => (order.cow as ICow).seller.id.toString() === id
     );
 
     return loggedInSellersOrders;
@@ -172,7 +172,9 @@ const getSpecificOrder = async (user: JwtPayload, id: string) => {
       });
 
     const loggedInSellersOrders = findAllOrders.filter(
-      (order) => (order.cow as ICow).seller._id.toString() === userId
+      (order) =>
+        (order.cow as ICow).seller.id.toString() === userId &&
+        order._id.toString() === id
     );
 
     return loggedInSellersOrders;

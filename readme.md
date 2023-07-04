@@ -1,4 +1,4 @@
-### live link: https://cow-hut-backendauth-mohammadnasir520.vercel.app/
+### live link: https://cow-hut-backend-admin-auth.vercel.app/
 
 ### Application Routes
 
