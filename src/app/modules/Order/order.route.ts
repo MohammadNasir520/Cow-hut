@@ -17,7 +17,8 @@ router.get(
   // auth(ENUM_USER_ROLE.ADMIN),
   authOrderSpecific(
     ENUM_USER_SPECIFIC.SPECIFIC_BUYER,
-    ENUM_USER_SPECIFIC.SPECIFIC_SELLER
+    ENUM_USER_SPECIFIC.SPECIFIC_SELLER,
+    ENUM_USER_ROLE.ADMIN
   ),
   OrderController.getSpecificOrder
 );

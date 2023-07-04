@@ -151,6 +151,9 @@ const getSpecificOrder = async (user: JwtPayload, id: string) => {
   console.log(id);
   let findCondition = {};
 
+  if (user.role === "admin") {
+    findCondition = { _id: new ObjectId(id) };
+  }
   if (user.role === "buyer") {
     findCondition = { buyer: userId, _id: new ObjectId(id) };
   }
