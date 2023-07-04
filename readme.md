@@ -3,11 +3,9 @@
 ### Application Routes
 
 ### User
-api/v1/auth/signup (POST) <br> 
-api/v1/users (GET) <br>
-api/v1/users/64a01c590bc5aa38d927239b (Single GET) <br> 
-api/v1/users/64a01c590bc5aa38d927239b (PATCH) <br>
-api/v1/users/64a01c590bc5aa38d927239b (DELETE) <br>
+Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/auth/login (POST)
+Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/auth/signup (POST)
+Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/auth/refresh-token (POST)
 ###  Cows
 api/v1/cows (POST) <br>
 api/v1/cows (GET) <br>
