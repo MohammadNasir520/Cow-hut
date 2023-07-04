@@ -4,7 +4,9 @@ import { Cow } from "../cow/cow.models";
 import { User } from "../user/user.model";
 import { IOrder } from "./order.interface";
 import { Order } from "./order.model";
-import mongoose, { startSession } from "mongoose";
+import mongoose from "mongoose";
+
+import { ICow } from "../cow/cow.interface";
 import { JwtPayload } from "jsonwebtoken";
 import { ObjectId } from "mongodb";
 
@@ -61,7 +63,6 @@ const createOrder = async (OrderData: IOrder) => {
       { budget: newBudget },
       { new: true, session }
     );
-    console.log(updateBuyersBudget);
 
     const updateSellersIncome = await User.findOneAndUpdate(
       { _id: sellerId },
@@ -77,7 +78,6 @@ const createOrder = async (OrderData: IOrder) => {
     OrderAllData = createOrder[0];
     await session.commitTransaction();
     await session.endSession();
-    console.log(updateCowLabel?.label, updateBuyersBudget?.budget);
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
@@ -99,28 +99,35 @@ const createOrder = async (OrderData: IOrder) => {
   return OrderAllData;
 };
 
-const getAllOrders = async (user: any) => {
-  console.log(user);
+const getAllOrders = async (user: JwtPayload) => {
   const id = user._id;
+
+  console.log(id);
   let findCondition = {};
 
   if (user.role === "buyer") {
     findCondition = { buyer: id };
   }
 
-  // else if (user.role === "seller") {
-  //   const findOrders = await Order.find(id).populate({
-  //     path: "cow",
-  //     populate: [
-  //       {
-  //         path: "seller",
-  //       },
-  //     ],
-  //   });
+  if (user.role === "seller") {
+    console.log("seller");
+    const findAllOrders = await Order.find()
+      .populate("buyer")
+      .populate({
+        path: "cow",
+        populate: [
+          {
+            path: "seller",
+          },
+        ],
+      });
 
-  //   const sellerId = findOrders[0].cow.seller._id;
-  //   findCondition = {};
-  // }
+    const loggedInSellersOrders = findAllOrders.filter(
+      (order) => (order.cow as ICow).seller._id.toString() === id
+    );
+
+    return loggedInSellersOrders;
+  }
 
   const getAllOrdersData = await Order.find(findCondition)
     .populate({
@@ -135,7 +142,51 @@ const getAllOrders = async (user: any) => {
       ],
     });
 
-  // console.log(getAllOrdersData[0].cow.seller._id);
+  return getAllOrdersData;
+};
+
+const getSpecificOrder = async (user: JwtPayload, id: string) => {
+  const userId = user._id;
+
+  console.log(id);
+  let findCondition = {};
+
+  if (user.role === "buyer") {
+    findCondition = { buyer: userId, _id: new ObjectId(id) };
+  }
+
+  if (user.role === "seller") {
+    console.log("seller");
+    const findAllOrders = await Order.find()
+      .populate("buyer")
+      .populate({
+        path: "cow",
+        populate: [
+          {
+            path: "seller",
+          },
+        ],
+      });
+
+    const loggedInSellersOrders = findAllOrders.filter(
+      (order) => (order.cow as ICow).seller._id.toString() === userId
+    );
+
+    return loggedInSellersOrders;
+  }
+
+  const getAllOrdersData = await Order.find(findCondition)
+    .populate({
+      path: "buyer",
+    })
+    .populate({
+      path: "cow",
+      populate: [
+        {
+          path: "seller",
+        },
+      ],
+    });
 
   return getAllOrdersData;
 };
@@ -143,4 +194,5 @@ const getAllOrders = async (user: any) => {
 export const OrderServices = {
   createOrder,
   getAllOrders,
+  getSpecificOrder,
 };

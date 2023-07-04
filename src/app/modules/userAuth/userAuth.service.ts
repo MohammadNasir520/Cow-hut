@@ -8,9 +8,11 @@ import httpStatus from "http-status";
 import { ILoginUser } from "./UserAuth.interface";
 import { jwtHelpers } from "../../helpers/jwtHelpers";
 
-const createUser = async (userData: IUser): Promise<IUser> => {
+const createUser = async (userData: IUser): Promise<Partial<IUser>> => {
   const createUser = await User.create(userData);
-  return createUser;
+
+  const { password, ...others } = createUser.toObject();
+  return others;
 };
 
 const loginUser = async (payload: ILoginUser) => {
@@ -19,8 +21,6 @@ const loginUser = async (payload: ILoginUser) => {
     { phoneNumber },
     { phoneNumber: 1, password: 1, role: 1 }
   ).lean();
-
-  console.log(isUserExist);
 
   if (!isUserExist) {
     throw new ApiError(httpStatus.NOT_FOUND, "User does not exist");
@@ -37,8 +37,6 @@ const loginUser = async (payload: ILoginUser) => {
 
   // creating accessToken
   const { _id, role } = isUserExist;
-
-  console.log(role);
 
   const accessToken = jwt.sign({ _id, role }, config.jwt.secret as Secret, {
     expiresIn: config.jwt.expires_in as string,
@@ -79,7 +77,6 @@ const refreshToken = async (token: string) => {
     config.jwt.expires_in as string
   );
 
-  console.log("c", accessToken);
   return { accessToken };
 };
 

@@ -7,7 +7,7 @@ import config from "../../../config";
 
 const createAdmin = catchAsync(async (req: Request, res: Response) => {
   const adminData = req.body;
-  console.log(adminData);
+
   const result = await AdminService.createAdmin(adminData);
 
   sendResponse(res, {

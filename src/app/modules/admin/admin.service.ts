@@ -9,7 +9,6 @@ import config from "../../../config";
 const createAdmin = async (AdminData: IAdmin): Promise<Partial<IAdmin>> => {
   const createAdmin = await Admin.create(AdminData);
 
-  console.log(createAdmin);
   const { password, ...others } = createAdmin.toObject();
   return others;
 };

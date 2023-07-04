@@ -1,7 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { IUser, UserModel } from "./user.interface";
 import bcrypt from "bcrypt";
 import config from "../../../config";
+
 const UserSchema = new Schema<IUser, UserModel>(
   {
     phoneNumber: {

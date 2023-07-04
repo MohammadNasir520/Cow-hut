@@ -9,13 +9,13 @@ const signUp = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const userData = req.body;
 
-    const createUser = await UserAuthService.createUser(userData);
+    const result = await UserAuthService.createUser(userData);
 
     res.status(200).json({
       success: true,
       statusCode: 200,
       message: "user created successfully",
-      data: createUser,
+      data: result,
     });
   }
 );
