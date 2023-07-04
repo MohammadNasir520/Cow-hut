@@ -27,11 +27,11 @@ https://cow-hut-backend-admin-auth.vercel.app/api/v1/orders (POST) <br>
 https://cow-hut-backend-admin-auth.vercel.app/api/v1/orders (GET) <br>
 ### bonus
 Admin
--Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/admins/create-admin (POST)
+-Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/admins/create-admin (POST)  <br>
 
 My Profile
-Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users/my-profile (GET)
-Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users/my-profile (PATCH)
+Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users/my-profile (GET)  <br>
+Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users/my-profile (PATCH)  <br>
 Order:
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/orders/64a41bf2c98a003f1caee7f2
 ###done
