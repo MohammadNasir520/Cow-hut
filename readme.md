@@ -3,15 +3,12 @@
 ### Application Routes
 
 ### User
-Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/auth/login (POST)
+Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/auth/login (POST) <br>
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/auth/signup (POST)
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/auth/refresh-token (POST)
-###  Cows
-api/v1/cows (POST) <br>
-api/v1/cows (GET) <br>
-api/v1/cows/64a01dd9dc6163a7394f3e3f (Single GET) <br> 
-api/v1/cows/64a01dd9dc6163a7394f3e3f (PATCH) <br>
-api/v1/cows/64a01dd9dc6163a7394f3e3f (DELETE) <br> 
+###  Admins
+Route: https://cow-hut-backend-admin-auth.vercel.app/v1/admins/create-admin (POST)
+Route: https://cow-hut-backend-admin-auth.vercel.app/v1/admins/login (POST)
 ###  Pagination and Filtering routes of Cows
 api/v1/cows?pag=1&limit=10 <br>
 api/v1/cows?sortBy=price&sortOrder=asc<br>
