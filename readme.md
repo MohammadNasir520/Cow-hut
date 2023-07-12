@@ -13,7 +13,7 @@ Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/admins/login (POST) 
 ### user
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users (GET) <br>
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users/64a41b84c98a003f1caee7e9 (Single GET) <br>
-Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users/64a41b84c98a003f1caee7e9(PATCH) <br>
+Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users/64a41b84c98a003f1caee7e9  (PATCH) <br>
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users/64a41b84c98a003f1caee7e9 (DELETE) <br>
 
 ###   Cows
@@ -32,7 +32,7 @@ https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows?searchTerm=dha<br>
 ###  Orders
 https://cow-hut-backend-admin-auth.vercel.app/api/v1/orders (POST) <br>
 https://cow-hut-backend-admin-auth.vercel.app/api/v1/orders (GET) <br>
-### bonus
+
 Admin
 -Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/admins/create-admin (POST)  <br>
 
