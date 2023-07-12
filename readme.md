@@ -19,8 +19,8 @@ Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/users/64a41b84c98a00
 ###   Cows
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows (POST)<br>
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows (GET)<br>
-Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows/64a41b2dc98a003f1caee7e6 (Single GET)  <br>
-Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows/64a41b2dc98a003f1caee7e6 (PATCH)  <br>
+Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows/64a42329aa15dcf7b8023ac3 (Single GET)  <br>
+Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows/64a42329aa15dcf7b8023ac3 (PATCH)  <br>
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows/64a44676e2b8b490e91d507c (DELETE)  <br>
 
 ### Pagination and Filtering routes of Cows
