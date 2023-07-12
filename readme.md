@@ -24,11 +24,11 @@ Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows/64a41b2dc98a003
 Route: https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows/64a44676e2b8b490e91d507c (DELETE)  <br>
 
 ### Pagination and Filtering routes of Cows
-https://cow-hut-backend-admin-auth.vercel.app/api/v1/cowsapi/v1/cows?pag=1&limit=10   [default 1, 10] <br>
-https://cow-hut-backend-admin-auth.vercel.app/api/v1/cowsapi/v1/cows?sortBy=price&sortOrder=asc<br>
-https://cow-hut-backend-admin-auth.vercel.app/api/v1/cowsapi/v1/cows?minPrice=2000&maxPrice=80000<br>
-https://cow-hut-backend-admin-auth.vercel.app/api/v1/cowsapi/v1/cows?location=Chattogram<br>
-https://cow-hut-backend-admin-auth.vercel.app/api/v1/cowsapi/v1/cows?searchTerm=dha<br>
+https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows?pag=1&limit=10   [default 1, 10] <br>
+https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows?sortBy=price&sortOrder=asc<br>
+https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows?minPrice=2000&maxPrice=80000<br>
+https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows?location=Chattogram<br>
+https://cow-hut-backend-admin-auth.vercel.app/api/v1/cows?searchTerm=dha<br>
 ###  Orders
 https://cow-hut-backend-admin-auth.vercel.app/api/v1/orders (POST) <br>
 https://cow-hut-backend-admin-auth.vercel.app/api/v1/orders (GET) <br>
